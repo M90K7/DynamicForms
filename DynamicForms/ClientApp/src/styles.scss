@@ -1,0 +1,35 @@
+// @import "~ng-zorro-antd/ng-zorro-antd.min.css";
+@import "~ng-zorro-antd/ng-zorro-antd.dark.min.css";
+
+*::-webkit-scrollbar {
+    width: 15px !important;
+    background-color: unset !important;
+}
+*::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background-color: #cdd0d4 !important;
+}
+*:hover::-webkit-scrollbar {
+    width: 15px !important;
+    height: 10px;
+}
+*:hover::-webkit-scrollbar-thumb {
+    background-color: #949aa5 !important;
+}
+
+.en-text {
+    direction: ltr;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Resolve NzNotificationModule RTL UI*/
+.rtl-notification {
+    & .anticon.ant-notification-notice-icon {
+        right: 20px;
+    }
+
+    & .ant-notification-notice-close {
+        left: 10px;
+        right: auto;
+    }
+}
