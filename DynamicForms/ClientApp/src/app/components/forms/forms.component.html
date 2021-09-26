@@ -1,3 +1,16 @@
+<ng-template #tpl_emptyForms>
+	<div class="empty-container">
+		<button nz-button
+				nzType="default"
+				(click)="newForm()">
+			<i nz-icon
+			   nzType="plus"
+			   nzTheme="outline"></i>
+			Add New Form
+		</button>
+	</div>
+</ng-template>
+
 <nz-space class="toolbar"
 		  [nzSize]="8">
 	<button *nzSpaceItem
@@ -10,7 +23,7 @@
 		New Form
 	</button>
 </nz-space>
-<div class="flex-container">
+<div *ngIf="forms.length > 0; else tpl_emptyForms" class="flex-container">
 	<nz-card *ngFor="let form of forms"
 			 [nzActions]="[formView, actionEdit]">
 		<nz-skeleton [nzActive]="true"
