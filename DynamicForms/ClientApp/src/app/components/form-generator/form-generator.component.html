@@ -1,0 +1,117 @@
+<div class="form-container">
+	<div class="form-data">
+		<form nz-form
+			  nzLayout="horizontal">
+			<nz-form-item>
+				<nz-form-label [nzSpan]="1"
+							   nzFor="form_name">Name</nz-form-label>
+				<nz-form-control [nzSpan]="14">
+					<input nz-input
+						   id="form_name"
+						   name="form_name"
+						   type="text"
+						   autocomplete="off"
+						   [(ngModel)]="form.name">
+				</nz-form-control>
+			</nz-form-item>
+			<nz-form-item>
+				<nz-form-label [nzSpan]="1"
+							   nzFor="form_title">Title</nz-form-label>
+				<nz-form-control [nzSpan]="14">
+					<input nz-input
+						   id="form_title"
+						   name="form_title"
+						   type="text"
+						   autocomplete="off"
+						   [(ngModel)]="form.title">
+				</nz-form-control>
+			</nz-form-item>
+		</form>
+	</div>
+	<div class="form-action">
+		<nz-space class="toolbar"
+				  [nzSize]="8">
+			<button *nzSpaceItem
+					nz-button
+					nzType="primary"
+					(click)="saveForm()">
+				<i nz-icon
+				   nzType="save"
+				   nzTheme="outline"></i>
+				Save
+			</button>
+			<button *nzSpaceItem
+					nz-button
+					nzDanger
+					nzType="primary"
+					(click)="removeForm()">
+				<i nz-icon
+				   nzType="delete"
+				   nzTheme="outline"></i>
+				Delete
+			</button>
+		</nz-space>
+	</div>
+</div>
+
+<nz-space class="toolbar"
+		  [nzSize]="8">
+	<button *nzSpaceItem
+			nz-button
+			nzType="default"
+			(click)="addControl()">
+		<i nz-icon
+		   nzType="plus"
+		   nzTheme="outline"></i>
+		Add
+	</button>
+</nz-space>
+<nz-table #table
+		  [nzData]="form.controls"
+		  nzBordered
+		  nzSize="small"
+		  [nzScroll]="{ x: '900px', y: '540px' }">
+	<thead>
+		<tr>
+			<th>Field Name</th>
+			<th>Title</th>
+			<th>Type</th>
+			<th>Required</th>
+			<th>Description</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let control of table.data; let index = index;">
+			<td>{{control.name}}</td>
+			<td>{{control.title}}</td>
+			<td>{{elementTypes[control.type]}}</td>
+			<td>{{control.require}}</td>
+			<td>{{control.description}}</td>
+			<td>
+				<nz-space [nzSize]="8">
+					<button *nzSpaceItem
+							nz-button
+							nzType="default"
+							(click)="editControl(control)">
+						<i nz-icon
+						   nzType="edit"
+						   nzTheme="outline"></i>
+						Edit
+					</button>
+
+					<button *nzSpaceItem
+							nz-button
+							nzType="default"
+							nzDanger
+							(click)="removeControl(control, index)">
+						<i nz-icon
+						   nzType="minus"
+						   nzTheme="outline"></i>
+						Remove
+					</button>
+				</nz-space>
+			</td>
+		</tr>
+	</tbody>
+</nz-table>

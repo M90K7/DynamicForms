@@ -1,0 +1,61 @@
+<form nz-form
+	  nzLayout="horizontal">
+	<nz-form-item>
+		<nz-form-label [nzSpan]="6"
+					   nzFor="name">Name</nz-form-label>
+		<nz-form-control [nzSpan]="14">
+			<input nz-input
+				   id="name"
+				   name="name"
+				   type="text"
+				   autocomplete="off"
+				   [(ngModel)]="model.name">
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="6"
+					   nzFor="title">Title</nz-form-label>
+		<nz-form-control [nzSpan]="14">
+			<input nz-input
+				   id="title"
+				   name="title"
+				   type="text"
+				   autocomplete="off"
+				   [(ngModel)]="model.title">
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="6"
+					   nzFor="type">Type</nz-form-label>
+		<nz-form-control [nzSpan]="14">
+			<nz-select nzShowSearch
+					   nzAllowClear
+					   nzPlaceHolder="Select a person"
+					   name="type"
+					   id="type"
+					   [(ngModel)]="model.type">
+				<nz-option *ngFor="let type of types"
+						   [nzLabel]="type[0]"
+						   [nzValue]="type[1]"></nz-option>
+			</nz-select>
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="6"
+					   nzFor="require">Require</nz-form-label>
+		<nz-form-control [nzSpan]="14">
+			<label nz-checkbox
+				   id="require"
+				   name="require"
+				   [(ngModel)]="model.require"></label>
+		</nz-form-control>
+	</nz-form-item>
+</form>
+<div *nzModalFooter>
+	<button nz-button
+			nzType="default"
+			(click)="onCancel()">Cancel</button>
+	<button nz-button
+			nzType="primary"
+			(click)="onSubmit()">Ok</button>
+</div>

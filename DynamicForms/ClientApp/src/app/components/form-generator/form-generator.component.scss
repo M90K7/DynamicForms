@@ -1,0 +1,22 @@
+:host{
+	padding-top: 1em;
+	display: block;
+}
+.toolbar {
+	line-height: 50px;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "form-data form-action";
+}
+
+.form-data { grid-area: form-data; }
+
+.form-action { grid-area: form-action; }
+

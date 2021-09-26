@@ -1,0 +1,45 @@
+<nz-space class="toolbar"
+		  [nzSize]="8">
+	<button *nzSpaceItem
+			nz-button
+			nzType="default"
+			(click)="newForm()">
+		<i nz-icon
+		   nzType="plus"
+		   nzTheme="outline"></i>
+		New Form
+	</button>
+</nz-space>
+<div class="flex-container">
+	<nz-card *ngFor="let form of forms"
+			 [nzActions]="[formView, actionEdit]">
+		<nz-skeleton [nzActive]="true"
+					 [nzTitle]="{ width: '200px' }"
+					 [nzParagraph]="{ rows: 1, width: '200px' }"
+					 [nzLoading]="loading">
+			<nz-card-meta nzTitle="{{form?.title}}"
+						  nzDescription="{{form?.name}}"></nz-card-meta>
+		</nz-skeleton>
+		<ng-template #formView>
+			<button nz-button
+					nzType="default"
+					[disabled]="!form"
+					(click)="viewForm(form)">
+				<i nz-icon
+				   nzType="form"
+				   nzTheme="outline"></i>
+				Form
+			</button> 
+		</ng-template>
+		<ng-template #actionEdit>
+			<button nz-button
+					nzType="default"
+					[disabled]="!form"
+					(click)="editForm(form)">
+				<i nz-icon
+				   nzType="edit"></i>
+				Edit
+			</button>
+		</ng-template>
+	</nz-card>
+</div>

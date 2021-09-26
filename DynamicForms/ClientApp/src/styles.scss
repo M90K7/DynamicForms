@@ -2,23 +2,22 @@
 @import "~ng-zorro-antd/ng-zorro-antd.dark.min.css";
 
 *::-webkit-scrollbar {
-    width: 15px !important;
+    width: 7px !important;
     background-color: unset !important;
 }
 *::-webkit-scrollbar-thumb {
-    border-radius: 25px;
+    border-radius: 15px;
     background-color: #cdd0d4 !important;
 }
 *:hover::-webkit-scrollbar {
-    width: 15px !important;
-    height: 10px;
+    width: 7px !important;
+    height: 7px;
 }
 *:hover::-webkit-scrollbar-thumb {
     background-color: #949aa5 !important;
 }
 
-.en-text {
-    direction: ltr;
+.body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 

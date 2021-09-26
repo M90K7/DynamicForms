@@ -1,0 +1,20 @@
+.toolbar {
+  line-height: 50px;
+}
+
+nz-card {
+  width: 300px;
+}
+
+.flex-container {
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-start;
+  /* flex-flow: row wrap; */
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  height: 100%;
+  gap: 1em;
+}

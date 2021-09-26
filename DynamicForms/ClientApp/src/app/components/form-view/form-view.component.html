@@ -1,0 +1,92 @@
+<p *ngIf="formElement?.title"
+   class="form-title">{{formElement?.title}}</p>
+<form nz-form
+	  nzLayout="horizontal"
+	  >
+	<ng-container *ngFor="let control of formElement?.controls">
+		<nz-form-item>
+			<nz-form-label [nzSpan]="6"
+						   nzFor="id_{{control.id}}">{{control.title}}</nz-form-label>
+			<nz-form-control [nzSpan]="14"
+							 [nzValidateStatus]="control.component?.instance?.validation?.status || 'success'"
+							 [nzErrorTip]="controlError"
+							 [nzHasFeedback]="feedbackEnable">
+				<ndc-dynamic [ndcDynamicComponent]="getElement(control)"
+							 (ndcDynamicCreated)="createElement($event, control)">
+				</ndc-dynamic>
+				<ng-template #controlError>
+					<ng-container *ngFor="let msg of control.component?.instance?.validation?.message || []">{{msg}}
+					</ng-container>
+				</ng-template>
+			</nz-form-control>
+		</nz-form-item>
+	</ng-container>
+	<nz-form-item style="flex-direction: row-reverse;">
+		<nz-form-control [nzOffset]="1"
+						 [nzSpan]="5">
+			<nz-space class="toolbar"
+					  [nzSize]="8">
+				<button *nzSpaceItem
+						nz-button
+						nzType="primary"
+						(click)="saveData()">
+					<i nz-icon
+					   nzType="save"
+					   nzTheme="outline"></i>
+					Save
+				</button>
+				<button *nzSpaceItem
+						nz-button
+						nzType="default"
+						(click)="resetControlData()">
+					<i nz-icon
+					   nzType="delete"
+					   nzTheme="outline"></i>
+					Reset
+				</button>
+			</nz-space>
+		</nz-form-control>
+	</nz-form-item>
+</form>
+
+<nz-table #table
+		  [nzData]="dataItems">
+	<thead>
+		<tr>
+			<th *ngFor="let control of formElement?.controls">
+				{{control.title}}
+			</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let data of table.data; let index = index;">
+			<ng-container *ngFor="let control of formElement?.controls">
+				<td>{{data[control.name]}}</td>
+			</ng-container>
+			<td>
+				<nz-space [nzSize]="8">
+					<button *nzSpaceItem
+							nz-button
+							nzType="default"
+							(click)="editData(data, index)">
+						<i nz-icon
+						   nzType="edit"
+						   nzTheme="outline"></i>
+						Edit
+					</button>
+					<button *nzSpaceItem
+							nz-button
+							nzType="default"
+							nzDanger
+							(click)="removeData(data, index)">
+						<i nz-icon
+						   nzType="minus"
+						   nzTheme="outline"></i>
+						Remove
+					</button>
+				</nz-space>
+			</td>
+		</tr>
+	</tbody>
+</nz-table>
