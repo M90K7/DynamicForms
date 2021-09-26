@@ -2,6 +2,10 @@
 
 This project was generated with `DotNet Core 5.0.0^` and [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
 
+## AnalizeTasks.docx
+
+View task road-map and application showcase image.
+
 ## 2 Way Run Development server
 
 1. Angular Server
