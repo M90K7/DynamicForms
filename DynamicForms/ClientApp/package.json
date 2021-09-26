@@ -1,5 +1,7 @@
 {
   "name": "dynamic-forms",
+  "author": "Moslem Shahsavan",
+  "homePage": "https://github.com/M90K7/DynamicForms",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
