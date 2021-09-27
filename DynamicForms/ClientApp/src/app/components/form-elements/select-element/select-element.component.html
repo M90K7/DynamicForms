@@ -1,1 +1,8 @@
-<p>select-element works!</p>
+<nz-select [nzMode]="mode"
+		   nzAllowClear
+		   [(ngModel)]="value"
+		   (ngModelChange)="valueChanged()">
+	<nz-option *ngFor="let item of items"
+			   [nzLabel]="item.value"
+			   [nzValue]="item.key"></nz-option>
+</nz-select>

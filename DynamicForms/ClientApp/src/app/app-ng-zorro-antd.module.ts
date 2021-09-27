@@ -15,6 +15,7 @@ import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
 import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
+import { NzRadioModule } from "ng-zorro-antd/radio";
 
 import { NzIconModule } from "ng-zorro-antd/icon";
 
@@ -37,7 +38,8 @@ import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";
 		NzInputNumberModule,
 		NzDatePickerModule,
 		NzCheckboxModule,
-		NzIconModule
+		NzIconModule,
+		NzRadioModule
 	],
 	providers: [{ provide: NZ_I18N, useValue: en_US }],
 })

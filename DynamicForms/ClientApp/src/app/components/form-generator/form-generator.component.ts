@@ -1,12 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import { EMPTY } from "rxjs";
+
 import { NzModalService } from "ng-zorro-antd/modal";
-import { ControlModalComponent } from "./control-modal/control-modal.component";
 import { NzNotificationService } from "ng-zorro-antd/notification";
+
 
 import * as models from "models";
 import * as svc from "services";
+import { ControlModalComponent } from "./control-modal/control-modal.component";
 
 @Component({
 	selector: "app-form-generator",
@@ -18,12 +21,14 @@ export class FormGeneratorComponent implements OnInit {
 	elementTypes = models.ElementType;
 
 	form: models.FormElement = {
-		id: models.Utils.newGuid(),
+		id: null,
 		name: "",
 		title: null,
 		description: null,
 		controls: [],
+		valueChange: EMPTY
 	};
+
 	constructor(
 		private readonly $router: Router,
 		private readonly $activatedRouter: ActivatedRoute,
@@ -31,7 +36,6 @@ export class FormGeneratorComponent implements OnInit {
 		private readonly nzNotificationSvc: NzNotificationService,
 		private readonly _formSvc: svc.FormService
 	) {
-		//
 	}
 
 	ngOnInit(): void {

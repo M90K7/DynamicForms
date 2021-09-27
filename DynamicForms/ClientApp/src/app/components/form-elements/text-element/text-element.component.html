@@ -4,4 +4,5 @@
 	   type="text"
 	   autocomplete="off"
 	   [attr.required]="require"
-	   [(ngModel)]="value">
+	   [(ngModel)]="value"
+	   (ngModelChange)="valueChanged()">

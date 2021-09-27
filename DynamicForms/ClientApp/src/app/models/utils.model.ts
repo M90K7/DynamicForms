@@ -1,6 +1,9 @@
 export class Utils {
 
 	static deepClone<T>(obj: T): T {
+		if (!obj) {
+			return obj;
+		}
 		return <T>JSON.parse(JSON.stringify(obj));
 	}
 

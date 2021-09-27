@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 import * as models from "models";
+import { Subject } from "rxjs";
 
 @Component({ template: "" })
 export abstract class ControlComponent implements models.ControlElement, OnInit {
@@ -14,16 +15,35 @@ export abstract class ControlComponent implements models.ControlElement, OnInit 
 	name = "";
 	title: string | null = null;
 	description: string | null = null;
+
 	value?: any;
+	valueChange = new Subject<any>();
 
 	constructor() {
 		//
 	}
 
 	ngOnInit(): void {
-		if(this.require){
-			this.validation?.push(new models.RequireValidation(this));
+		if (this.validation) {
+			if (this.require) {
+				this.validation.push(new models.RequireValidation(this));
+			}
+			this.validation.init();
 		}
+
+	}
+
+	onReset(): void {
+		this.value = null;
+	}
+
+	onEdit(data: models.ObjectDic): void {
+		this.value = data[this.name];
+		this.validation?.validate();
+	}
+
+	valueChanged(): void {
+		this.valueChange.next(this.value);
 	}
 
 }

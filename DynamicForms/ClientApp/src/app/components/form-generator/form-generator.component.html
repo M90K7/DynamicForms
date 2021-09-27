@@ -44,6 +44,7 @@
 					nz-button
 					nzDanger
 					nzType="primary"
+					[disabled]="!form.id "
 					(click)="removeForm()">
 				<i nz-icon
 				   nzType="delete"
@@ -93,22 +94,24 @@
 					<button *nzSpaceItem
 							nz-button
 							nzType="default"
+							nzSize="small"
+							nz-tooltip nzTooltipTitle="Edit"
 							(click)="editControl(control)">
 						<i nz-icon
 						   nzType="edit"
 						   nzTheme="outline"></i>
-						Edit
 					</button>
 
 					<button *nzSpaceItem
 							nz-button
 							nzType="default"
+							nzSize="small"
+							nz-tooltip nzTooltipTitle="Delete"
 							nzDanger
 							(click)="removeControl(control, index)">
 						<i nz-icon
 						   nzType="minus"
 						   nzTheme="outline"></i>
-						Remove
 					</button>
 				</nz-space>
 			</td>

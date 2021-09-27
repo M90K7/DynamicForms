@@ -1,3 +1,4 @@
+import { Observable, Subject } from "rxjs";
 
 export interface ElementModel {
 	id: string | null;
@@ -5,9 +6,5 @@ export interface ElementModel {
 	title: string | null;
 	description: string | null;
 	value?: any;
-}
-
-
-export interface ObjectDic {
-	[index: string]: unknown;
+	valueChange: Observable<any>;
 }

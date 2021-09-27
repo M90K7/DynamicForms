@@ -36,12 +36,12 @@
 		<ng-template #formView>
 			<button nz-button
 					nzType="default"
-					[disabled]="!form"
+					[disabled]="!form || !form.controls.length"
 					(click)="viewForm(form)">
 				<i nz-icon
 				   nzType="form"
 				   nzTheme="outline"></i>
-				Form
+				Data
 			</button> 
 		</ng-template>
 		<ng-template #actionEdit>

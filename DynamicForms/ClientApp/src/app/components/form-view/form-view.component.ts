@@ -5,6 +5,7 @@ import { FormElementService } from "../form-element.service";
 
 import * as models from "models";
 import * as svc from "services";
+import { ControlComponent } from "components/form-elements/control.component";
 
 @Component({
 	selector: "app-form-view",
@@ -47,19 +48,19 @@ export class FormViewComponent implements OnInit {
 		return this._formEleSvc.getElementType(control.type);
 	}
 
-	createElement($event: ComponentRef<models.ControlElement>, control: models.ControlElement): void {
-		Object.assign($event.instance, control);
+	createElement(cmpRef: ComponentRef<models.ControlElement>, control: models.ControlElement): void {
+		Object.assign(cmpRef.instance, control);
 		control.component = {
 			_stringify_: false,
-			instance: $event.instance
+			instance: cmpRef.instance
 		};
-		$event.instance.validation = new models.ValidationWrapper();
-		this.formElement?.validation?.push($event.instance.validation);		
+		cmpRef.instance.validation = new models.ValidationWrapper(cmpRef.instance);
+		this.formElement?.validation?.push(cmpRef.instance.validation);
 	}
 
 	saveData(): void {
-		this.feedbackEnable = true;
 		if (!this.formElement?.validation?.validate()) {
+			this.feedbackEnable = true;
 			return;
 		}
 		const data: models.ObjectDic = {};
@@ -83,23 +84,30 @@ export class FormViewComponent implements OnInit {
 	}
 
 	resetControlData(): void {
+		this.feedbackEnable = false;
+
 		this.editIndex = -1;
 
 		if (this.formElement) {
 			for (const control of this.formElement.controls) {
 				if (control && control.name && control.component) {
-					control.component.instance.value = null;
+					(control.component.instance as models.ControlElement).onReset &&
+						(control.component.instance as models.ControlElement).onReset();
+
 				}
 			}
 		}
+		this.formElement?.validation?.reset();
 	}
 
 	editData(data: models.ObjectDic, index: number): void {
+		this.feedbackEnable = false;
 		if (this.formElement) {
 			this.editIndex = index;
 			for (const control of this.formElement.controls) {
 				if (control && control.name && control.component) {
-					control.component.instance.value = data[control.name];
+					(control.component.instance as models.ControlElement).onEdit &&
+						(control.component.instance as models.ControlElement).onEdit(data);
 				}
 			}
 		}

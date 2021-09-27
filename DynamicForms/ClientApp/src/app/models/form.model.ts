@@ -1,3 +1,4 @@
+import { ObjectDic } from "./base.model";
 import { ValidationWrapper } from "./element-validation.model";
 import { ElementModel } from "./element.model";
 
@@ -33,6 +34,8 @@ export interface ControlElement extends ElementComponent {
 	type: ElementType;
 	settings: GeneralFormSetting;
 	require: boolean;
+	onReset: () => void;
+	onEdit: (data: ObjectDic) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

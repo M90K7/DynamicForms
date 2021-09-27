@@ -2,8 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppNgZorroAntdModule } from "./app-ng-zorro-antd.module";
 import { DynamicModule } from "ng-dynamic-component";
@@ -29,7 +28,9 @@ import * as cmp from "components";
 		cmp.RadioElementComponent,
 		cmp.SelectElementComponent,
 		cmp.TextAreaElementComponent,
-		cmp.TextElementComponent
+		cmp.TextElementComponent,
+		cmp.ElementItemsSettingComponent,
+		cmp.ElementCheckboxSettingComponent
 	],
 	imports: [
 		BrowserModule,

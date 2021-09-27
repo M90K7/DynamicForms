@@ -6,3 +6,6 @@ export * from "./radio-element/radio-element.component";
 export * from "./select-element/select-element.component";
 export * from "./text-area-element/text-area-element.component";
 export * from "./text-element/text-element.component";
+
+//settings
+export * from "./settings";

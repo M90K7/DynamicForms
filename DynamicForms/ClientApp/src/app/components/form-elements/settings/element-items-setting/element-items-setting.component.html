@@ -1,0 +1,71 @@
+<button nz-button
+		nzType="primary"
+		(click)="showModal()">
+	<i nz-icon
+	   nzType="plus"
+	   nzTheme="outline"></i>
+</button>
+<span *ngIf="value.length"> {{ value.length }} Item</span>
+
+<nz-modal [(nzVisible)]="isVisible"
+		  nzTitle="Key-Value Items"
+		  (nzOnCancel)="handleCancel()"
+		  (nzOnOk)="handleOk()">
+	<ng-container *nzModalContent>
+		<div class="toolbar-sm">
+			<div class="add-icon">
+				<button nz-button
+						nzType="default"
+						(click)="addRow()">
+					<i nz-icon
+					   nzType="plus"
+					   nzTheme="outline"></i>
+					Add Item
+				</button>
+			</div>
+		</div>
+		<nz-table #tableItems
+				  [nzData]="value"
+				  [nzShowPagination]="false"
+				  nzSize="small">
+			<thead>
+				<tr>
+					<th>Key</th>
+					<th>Value</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let data of tableItems.data; let index = index;">
+					<td>
+						<input nz-input
+							   name="key"
+							   type="text"
+							   autocomplete="off"
+							   [(ngModel)]="data.key" />
+					</td>
+					<td>
+						<input nz-input
+							   name="value"
+							   type="text"
+							   autocomplete="off"
+							   [(ngModel)]="data.value">
+					</td>
+					<td>
+						<button nz-button
+								nzType="default"
+								nzSize="small"
+								nzDanger
+								nz-tooltip
+								nzTooltipTitle="Delete"
+								(click)="remove(data, index)">
+							<i nz-icon
+							   nzType="minus"
+							   nzTheme="outline"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</nz-table>
+	</ng-container>
+</nz-modal>

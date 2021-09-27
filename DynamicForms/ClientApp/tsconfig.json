@@ -23,6 +23,8 @@
     "paths": {
       "components": [
         "src/app/components",
+      ],
+      "components/*": [
         "src/app/components/*",
       ],
       "models": [

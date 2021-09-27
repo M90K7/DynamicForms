@@ -1,1 +1,6 @@
-<p>radio-element works!</p>
+<nz-radio-group [(ngModel)]="value"
+				(ngModelChange)="valueChanged()">
+	<label nz-radio
+		   [nzValue]="item.key"
+		   *ngFor="let item of items">{{ item.value }}</label>
+</nz-radio-group>

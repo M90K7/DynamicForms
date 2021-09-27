@@ -7,16 +7,15 @@ export abstract class Validation {
 	// شدن serialize جلوگیری از
 	_stringify_ = false;
 
-	private _changeSubject = new Subject<Validation>();
-	private _isValid = true;
+	protected _isValid = true;
 
 	config?: any;
 
-	private _message: Array<string> = [];
-	public get message(): Array<string> {
+	protected _message: Array<string> = [];
+	get message(): Array<string> {
 		return this._message;
 	}
-	public set message(value: Array<string>) {
+	set message(value: Array<string>) {
 		this._message = value;
 	}
 
@@ -37,7 +36,6 @@ export abstract class Validation {
 	set isValid($val: boolean) {
 		if (this._isValid !== $val) {
 			this._isValid = $val;
-			this._changeSubject.next(this);
 		}
 	}
 
@@ -45,18 +43,19 @@ export abstract class Validation {
 		return this.isValid ? "success" : "error";
 	}
 
-	get change(): Observable<Validation> {
-		return this._changeSubject;
+	init(): void {
+		//
+	}
+
+	reset(): void {
+		this.message = [];
+		this.isValid = true;
 	}
 
 	abstract validate(): boolean;
 }
 
 export class RequireValidation extends Validation {
-	
-	get message(): Array<string>{
-		return [`Field '${this.element.title || this.element.name}' is required.`];
-	}
 
 	constructor(public element: ElementModel) {
 		super(null);
@@ -64,14 +63,19 @@ export class RequireValidation extends Validation {
 
 	validate(): boolean {
 
+		this._isValid = true;
+		
 		if (this.element && Array.isArray(this.element.value)) {
-			return (this.isValid = this.element.value.length > 0);
+			this.isValid = this.element.value.length > 0;
+		} else {
+			this.isValid = Boolean(this.element &&
+				this.element.value != null &&
+				this.element.value !== ""
+			);
 		}
-
-		this.isValid = Boolean(this.element &&
-			this.element.value != null &&
-			this.element.value !== ""
-		);
+		if (!this.isValid) {
+			this.message = [`Field '${this.element.title || this.element.name}' is required.`];
+		}
 
 		return this.isValid;
 	}
@@ -81,29 +85,43 @@ export class ValidationWrapper extends Validation {
 
 	private _validations: Array<Validation> = [];
 
-	constructor() {
+	constructor(public element?: ElementModel) {
 		super(null);
 		this.message = [];
+	}
+
+	init(): void {
+		this.element?.valueChange.subscribe(() => {
+			this.validate();
+		});
+	}
+
+	reset(): void {
+		super.reset();
+		for (const v of this._validations) {
+			v.reset();
+		}
 	}
 
 	validate(): boolean {
 
 		this.message = [];
 
+		this._isValid = true;
+
 		for (const v of this._validations) {
 			if (!v.validate()) {
 				this.message.push(...v.message);
-				return (this.isValid = false);
+				if (this.isValid) {
+					(this.isValid = false);
+				}
 			}
 		}
-		return (this.isValid = true);
+		return (this.isValid);
 	}
 
 	push(validation: Validation): Validation {
 		this._validations.push(validation);
-		validation.change.subscribe(() => {
-			setTimeout(() => this.validate(), 10);
-		});
 		return validation;
 	}
 

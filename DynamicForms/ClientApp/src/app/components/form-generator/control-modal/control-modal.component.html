@@ -33,7 +33,8 @@
 					   nzPlaceHolder="Select a person"
 					   name="type"
 					   id="type"
-					   [(ngModel)]="model.type">
+					   [(ngModel)]="model.type"
+					   (ngModelChange)="controlTypeChange()">
 				<nz-option *ngFor="let type of types"
 						   [nzLabel]="type[0]"
 						   [nzValue]="type[1]"></nz-option>
@@ -48,6 +49,15 @@
 				   id="require"
 				   name="require"
 				   [(ngModel)]="model.require"></label>
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item *ngFor="let setting of settingDefs">
+		<nz-form-label [nzSpan]="6"
+					   [nzFor]="setting.name">{{setting.title}}</nz-form-label>
+		<nz-form-control [nzSpan]="14">
+			<ndc-dynamic [ndcDynamicComponent]="setting.type"
+						 [ndcDynamicInputs]="{settingDef: setting}"
+						 (ndcDynamicCreated)="settingComponentCreated($event, setting)"></ndc-dynamic>
 		</nz-form-control>
 	</nz-form-item>
 </form>
